@@ -1,114 +1,49 @@
 import streamlit as st
 
-st.set_page_config(page_title="Financial Literacy & Cyber Fraud Quiz")
+st.set_page_config(page_title="Financial Literacy & Cyber Safety Quiz")
 
-st.title("🧠 Financial Literacy & Cyber Fraud Quiz")
-st.write("Test your knowledge with these 10 interactive questions!")
+st.title("💰 Financial Literacy & Cyber Safety Quiz")
+st.write("Interactive Quiz with MCQs, Match the Columns & Jumbled Words!")
+
+score = 0
+
+# ---------------- MCQ SECTION ---------------- #
+
+st.header("📘 Multiple Choice Questions")
 
 questions = [
     {
-        "question": "1. What is the safest way to keep your online banking password secure?",
-        "options": [
-            "Share it with close friends",
-            "Use the same password everywhere",
-            "Use a strong unique password",
-            "Write it publicly in notes"
-        ],
-        "answer": "Use a strong unique password"
+        "question": "1. What should you never share online?",
+        "options": ["OTP", "Jokes", "Photos", "Notes"],
+        "answer": "OTP"
     },
     {
-        "question": "2. What does SIP stand for in mutual funds?",
+        "question": "2. SIP stands for:",
         "options": [
-            "Safe Investment Plan",
+            "Safe Internet Plan",
             "Systematic Investment Plan",
-            "Savings Interest Program",
-            "Secure Income Policy"
+            "Secure Income Policy",
+            "Savings Interest Plan"
         ],
         "answer": "Systematic Investment Plan"
     },
     {
-        "question": "3. Which of these is a common cyber fraud?",
-        "options": [
-            "Phishing",
-            "Saving money",
-            "Budget planning",
-            "Opening FD"
-        ],
+        "question": "3. Which is a cyber fraud?",
+        "options": ["Phishing", "Saving", "Budgeting", "Investing"],
         "answer": "Phishing"
     },
     {
-        "question": "4. What should you do if you receive a suspicious OTP request?",
+        "question": "4. Why is budgeting important?",
         "options": [
-            "Share OTP quickly",
-            "Ignore and never share OTP",
-            "Post it online",
-            "Forward it to strangers"
-        ],
-        "answer": "Ignore and never share OTP"
-    },
-    {
-        "question": "5. Emergency funds are mainly used for:",
-        "options": [
-            "Luxury shopping",
-            "Unexpected expenses",
-            "Gaming",
-            "Buying random items"
-        ],
-        "answer": "Unexpected expenses"
-    },
-    {
-        "question": "6. Which app lock is more secure?",
-        "options": [
-            "1234",
-            "Password",
-            "Fingerprint/Face Lock",
-            "Date of birth"
-        ],
-        "answer": "Fingerprint/Face Lock"
-    },
-    {
-        "question": "7. What is budgeting?",
-        "options": [
-            "Spending without limits",
-            "Planning income and expenses",
-            "Ignoring savings",
-            "Taking loans always"
-        ],
-        "answer": "Planning income and expenses"
-    },
-    {
-        "question": "8. A fake message asking for bank details is called:",
-        "options": [
-            "Investment",
-            "Phishing scam",
-            "Budget alert",
-            "EMI reminder"
-        ],
-        "answer": "Phishing scam"
-    },
-    {
-        "question": "9. Why is saving money important?",
-        "options": [
-            "For emergencies and future goals",
-            "To waste later",
+            "To waste money",
+            "To plan expenses",
             "To avoid banks",
-            "No reason"
+            "For gaming"
         ],
-        "answer": "For emergencies and future goals"
-    },
-    {
-        "question": "10. What should you check before clicking a website link?",
-        "options": [
-            "Website URL and security",
-            "Only colors",
-            "Random ads",
-            "Nothing"
-        ],
-        "answer": "Website URL and security"
+        "answer": "To plan expenses"
     }
 ]
 
-score = 0
 user_answers = []
 
 for q in questions:
@@ -120,19 +55,89 @@ for q in questions:
     )
     user_answers.append((ans, q["answer"]))
 
+# ---------------- MATCH THE COLUMNS ---------------- #
+
+st.header("🔗 Match the Columns")
+
+st.write("Match Column A with the correct option from Column B")
+
+match1 = st.selectbox(
+    "Savings Account →",
+    ["Select", "Bank", "Fraud", "Investment", "Password"]
+)
+
+match2 = st.selectbox(
+    "Phishing →",
+    ["Select", "Cyber Fraud", "Bank", "Budget", "Savings"]
+)
+
+match3 = st.selectbox(
+    "SIP →",
+    ["Select", "Investment", "Password", "Loan", "Shopping"]
+)
+
+match4 = st.selectbox(
+    "OTP →",
+    ["Select", "Secret Code", "Budget", "Interest", "Tax"]
+)
+
+# ---------------- JUMBLED WORDS ---------------- #
+
+st.header("🔀 Unscramble the Financial & Cyber Words")
+
+jumble1 = st.text_input(
+    "1. Unscramble: 'GNIVASS'"
+)
+
+jumble2 = st.text_input(
+    "2. Unscramble: 'GNIHSIHP'"
+)
+
+jumble3 = st.text_input(
+    "3. Unscramble: 'TEGDUB'"
+)
+
+# ---------------- SUBMIT BUTTON ---------------- #
+
 if st.button("Submit Quiz 🚀"):
+
+    # MCQ Score
     for user, correct in user_answers:
         if user == correct:
             score += 1
 
-    st.success(f"🎉 Your Score: {score}/10")
+    # Match the Columns Score
+    if match1 == "Bank":
+        score += 1
 
-    if score == 10:
+    if match2 == "Cyber Fraud":
+        score += 1
+
+    if match3 == "Investment":
+        score += 1
+
+    if match4 == "Secret Code":
+        score += 1
+
+    # Jumbled Words Score
+    if jumble1.strip().upper() == "SAVINGS":
+        score += 1
+
+    if jumble2.strip().upper() == "PHISHING":
+        score += 1
+
+    if jumble3.strip().upper() == "BUDGET":
+        score += 1
+
+    # Final Result
+    st.success(f"🎉 Your Total Score: {score}/11")
+
+    if score >= 9:
         st.balloons()
-        st.write("Excellent! You're financially and digitally smart! 😎")
-    elif score >= 7:
-        st.write("Great job! Keep learning and staying safe online 👍")
-    elif score >= 4:
-        st.write("Good attempt! A little more awareness will help 💡")
+        st.write("Excellent! You are cyber smart and financially aware 😎")
+
+    elif score >= 6:
+        st.write("Great work! Keep improving your financial literacy 💡")
+
     else:
-        st.write("Keep practicing financial and cyber safety skills 🔐")
+        st.write("Good try! Learn more about cyber safety and smart money habits 🔐")
